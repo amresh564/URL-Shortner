@@ -72,5 +72,4 @@ const UrlShortTextEdit = () => {
     )
 }
 
-
 export default UrlShortTextEdit;
