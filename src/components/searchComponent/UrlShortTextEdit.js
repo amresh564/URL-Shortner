@@ -60,7 +60,7 @@ const UrlShortTextEdit = () => {
                 shortUrl !== "" &&
                 <div className="card card-custom">
                     <img className="card-img-top"
-                         src="https://images.unsplash.com/photo-1595079836075-96bdbbf859d7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHFyJTIwY29kZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                         src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png?20200615212723"
                          alt="Card image cap"/>
                     <div className="card-body">
                         <Button className={"button-link"} onClick={() => openInNewTab()}>Go to
