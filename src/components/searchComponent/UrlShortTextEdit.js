@@ -54,7 +54,7 @@ const UrlShortTextEdit = () => {
                        id="floatingInput" placeholder="SomeWebsite.com"/>
                 <label className={"label-text"} htmlFor="floatingInput">Enter Long URL</label>
             </div>
-            <Button>Make Short</Button>
+            <Button onClick={() => setLongUrl(document.getElementById('floatingInput').value)}>Make Short</Button>
 
             {
                 shortUrl !== "" &&
