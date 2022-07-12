@@ -106,3 +106,19 @@ body {
 .mastfoot {
     color: rgba(255, 255, 255, .5);
 }
+
+@keyframes moveInTop {
+    0%{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+.masthead-anim{
+    animation-name: moveInTop;
+    animation-duration: 1s;
+}

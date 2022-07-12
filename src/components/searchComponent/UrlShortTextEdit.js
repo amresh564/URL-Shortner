@@ -7,6 +7,7 @@ import './UrlShotTextEdit.css'
 const UrlShortTextEdit = () => {
     const [longUrl, setLongUrl] = useState("");
     const [shortUrl, setShortUrl] = useState("");
+    const [qrUrl, setQr] = useState("");
 
     const baseURL = "https://sheltered-everglades-08560.herokuapp.com"
 
@@ -21,20 +22,27 @@ const UrlShortTextEdit = () => {
     }
 
     const openInNewTab = (url = shortUrl) => {
-        console.log(url)
         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
         if (newWindow) newWindow.opener = null
     }
 
+    const fetchImage = async (imageUrl) => {
+        console.log(imageUrl)
+        const res = await fetch(imageUrl);
+        const imageBlob = await res.blob();
+        const imageObjectURL = URL.createObjectURL(imageBlob);
+        setQr(imageObjectURL);
+    };
+
     useEffect(() => {
+
         const delayDebounceFn = setTimeout(() => {
-
-            console.log(longUrl)
-
             if (validURL(longUrl)) {
                 axios.get(baseURL + "/short?longUrl=" + longUrl).then(response => {
                     var respUrl = response.data.shortUrl.toString()
                     setShortUrl(respUrl)
+                    console.log(response.data)
+                    fetchImage(response.data.qrUrl)
                 })
             } else {
                 setShortUrl("")
@@ -51,19 +59,20 @@ const UrlShortTextEdit = () => {
             <div className="form-floating mb-3">
                 <input autoFocus type='text' autoComplete='off' className="form-control live-search-field"
                        onChange={(e) => setLongUrl(e.target.value)}
-                       id="floatingInput" placeholder="SomeWebsite.com"/>
+                       id="floatingInput"/>
                 <label className={"label-text"} htmlFor="floatingInput">Enter Long URL</label>
             </div>
-            <Button onClick={() => setLongUrl(document.getElementById('floatingInput').value)}>Make Short</Button>
-
+            <Button className={"btn btn-submit btn-animated"}
+                    onClick={() => setLongUrl(document.getElementById('floatingInput').value)}>Make Short</Button>
             {
                 shortUrl !== "" &&
                 <div className="card card-custom">
-                    <img className="card-img-top"
-                         src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png?20200615212723"
+                    <img className="card-img-top image"
+                         src={qrUrl}
+                         onClick={() => openInNewTab()}
                          alt="Card image cap"/>
                     <div className="card-body">
-                        <Button className={"button-link"} onClick={() => openInNewTab()}>Go to
+                        <Button className="btn btn-effect" onClick={() => openInNewTab()}>Go to
                             Site</Button>
                     </div>
                 </div>
